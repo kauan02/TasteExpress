@@ -1,6 +1,13 @@
 import os 
 
-restaurants = ['Pizza Hut', 'Outback', 'Super Grill', 'Hazaki Sushi', 'KFC', 'McDonalds', 'Burguer King']
+restaurants = [{'name':'Pizza Hut', 'category':'Pizzeria', 'activation':True},
+               {'name':'Outback', 'category':'Autralian', 'activation':False},
+               {'name':'Super Grill', 'category':'Buffet', 'activation':True},
+               {'name':'Hazaki Sushi', 'category':'Japanese', 'activation':True},
+               {'name':'KFC', 'category':'Fried Chicken', 'activation':False},
+               {'name':'McDonalds', 'category':'Fast Food', 'activation':True},
+               {'name':'Burguer King', 'category':'Fast Food', 'activation':False}
+]
 
 def show_program_name():
     print('𝚝𝚊𝚜𝚝𝚎 𝚎𝚡𝚙𝚛𝚎𝚜𝚜\n')
@@ -12,13 +19,15 @@ def show_options():
     print('4. Exit\n')
 
 def invalid_option():
-    os.system('cls')
-    print('Invalid option\n')
+    show_subtittle('Invalid option')
     return_to_menu()
 
 def end_app():
+    show_subtittle('Closing app...')
+
+def show_subtittle(text):
     os.system('cls')
-    print('Closing app...')
+    print(text)
     print()
 
 def return_to_menu():
@@ -26,18 +35,21 @@ def return_to_menu():
     main()
 
 def register_new_restaurant():
-    os.system('cls')
-    print('New restaurant register\n')
+    show_subtittle('New restaurant register')
     restaurant_name = input('Type the restaurant name that you want to register: ')
-    restaurants.append(restaurant_name)
+    category = input(f'Type the {restaurant_name} category: ')
+    restaurant_data = {'name':restaurant_name, 'category':category, 'activation':False}
+    restaurants.append(restaurant_data)
     print(f'\nThe restaurant {restaurant_name} has been registered successfully!\n')
     return_to_menu()
     
 def list_restaurants():
-    os.system('cls')
-    print('Listing restaurants\n')
+    show_subtittle('Listing restaurants')
     for restaurant in restaurants:
-        print(f'.{restaurant}')
+        restaurant_name = restaurant['name']
+        restaurant_category = restaurant['category']
+        restaurant_activation = restaurant['activation']
+        print(f'- {restaurant_name} | {restaurant_category} | {restaurant_activation}')
     return_to_menu()
     
 def chose_options():
