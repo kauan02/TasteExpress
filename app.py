@@ -1,12 +1,12 @@
 import os 
 
-restaurants = [{'name':'Pizza Hut', 'category':'Pizzeria', 'activation':True},
-               {'name':'Outback', 'category':'Autralian', 'activation':False},
-               {'name':'Super Grill', 'category':'Buffet', 'activation':True},
-               {'name':'Hazaki Sushi', 'category':'Japanese', 'activation':True},
-               {'name':'KFC', 'category':'Fried Chicken', 'activation':False},
-               {'name':'McDonalds', 'category':'Fast Food', 'activation':True},
-               {'name':'Burguer King', 'category':'Fast Food', 'activation':False}
+restaurants = [{'name':'PIZZA HUT', 'category':'PIZZERIA', 'activation':True},
+               {'name':'OUTBACK', 'category':'AUSTRALIAN', 'activation':False},
+               {'name':'SUPER GRILL', 'category':'BUFFET', 'activation':True},
+               {'name':'HAZAKI SUSHI', 'category':'JAPANESE', 'activation':True},
+               {'name':'KFC', 'category':'FRIED CHICKEN', 'activation':False},
+               {'name':'MCDONALDS', 'category':'FAST FOOD', 'activation':True},
+               {'name':'BURGUER KING', 'category':'FAST FOOD', 'activation':False}
 ]
 
 def show_program_name():
@@ -36,8 +36,8 @@ def return_to_menu():
 
 def register_new_restaurant():
     show_subtittle('New restaurant register')
-    restaurant_name = input('Type the restaurant name that you want to register: ')
-    category = input(f'Type the {restaurant_name} category: ')
+    restaurant_name = input('Type the restaurant name that you want to register: ').upper()
+    category = input(f'Type the {restaurant_name} category: ').upper()
     restaurant_data = {'name':restaurant_name, 'category':category, 'activation':False}
     restaurants.append(restaurant_data)
     print(f'\nThe restaurant {restaurant_name} has been registered successfully!\n')
@@ -52,6 +52,20 @@ def list_restaurants():
         print(f'- {restaurant_name} | {restaurant_category} | {restaurant_activation}')
     return_to_menu()
     
+def toggle_activation():
+    show_subtittle('Toogle restaurant activation')
+    restaurant_name = input('Type the name of the restaurant that you want to toggle the activation: ').upper()
+    restaurant_found = False
+    for restaurant in restaurants:
+        if restaurant_name == restaurant['name']:
+            restaurant_found = True
+            restaurant['activation'] = not restaurant['activation']
+            mesage = f'The restaurant {restaurant_name} has been successfully activated'  if restaurant['activation'] else f'The restaurant {restaurant_name} has been successfully deactivated'
+            print(mesage)
+    if not restaurant_found:
+        print('The restaurant was not found')
+    return_to_menu()
+    
 def chose_options():
     try:
         choosen_option = int(input('Choose one option: '))
@@ -60,7 +74,7 @@ def chose_options():
         elif choosen_option == 2:
             list_restaurants()
         elif choosen_option == 3:
-            print('Activate restaurant')
+            toggle_activation()
         elif choosen_option == 4:
             end_app()
         else:
